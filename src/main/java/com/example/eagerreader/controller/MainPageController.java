@@ -16,4 +16,14 @@ public class MainPageController {
     public String displaySignupPage(){
         return "user/registration";
     }
+
+    @GetMapping("/signin")
+    public String displaySigninPage(){
+        return "user/login";
+    }
+
+    @GetMapping("/books/*")
+    public String displayBooksPage(){
+        return "dashboard/all";
+    }
 }

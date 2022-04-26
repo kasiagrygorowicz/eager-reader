@@ -5,11 +5,12 @@
 
 </head>
 <body>
-<header th:replace="fragments/navbar :: navbar"/>
+<header th:insert="fragments/navbar :: navbar"/>
 <div class="d-flex justify-content-center">
     <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3" style="margin-top: 10vh">
+
         <form class="card shadow p-3">
-            <h1 class="text-center mb-4">Register</h1>
+            <h1 class="text-center mb-4">Sign in</h1>
             <div class="alert alert-danger mb-3">
                 Error
             </div>
@@ -22,17 +23,15 @@
                 <input class="form-control" id="password" type="password">
             </div>
             <div class="mb-3">
-                <label class="form-label">Confirm password</label>
-                <input class="form-control" id="confirmPassword" type="password">
-            </div>
-            <div class="mb-3">
-                <button class="btn btn-outline-primary w-100" type="submit">Sign up</button>
+                <button class="btn btn-outline-primary w-100" type="submit">Sign in</button>
             </div>
             <div class="mt-4">
-                <a class="text-decoration-none" th:href="@{/signin}">Already have an account? Sign in</a>
+                <a class="text-decoration-none" th:href="@{/signup}">Don't have an account? Sign up</a>
             </div>
         </form>
     </div>
 </div>
+
 </body>
+
 </html>
