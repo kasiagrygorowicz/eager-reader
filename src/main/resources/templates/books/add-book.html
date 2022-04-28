@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<header th:replace="fragments/navbar :: navbar"/>
+
+<form>
+    <div class="mb-3">
+        <label for="book_title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="book_title">
+    </div>
+    <div class="mb-3">
+        <label for="book_synopsis" class="form-label">Synopsis</label>
+        <textarea class="form-control" id="book_synopsis" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="publish_year" class="form-label">Publication date</label>
+        <input class="form-control" type="date" id="publish_year" rows="3"></input>
+    </div>
+    <div>
+    <label for="author_list" class="form-label">Author(s)</label>
+    <input class="form-control" list="author_options" id="author_list" placeholder="Type to search..." multiple>
+    <datalist id="author_options">
+        <option value="Jane Austin">
+        <option value="Emily Dickinson">
+        <option value="William Blake">
+        <option value="Ernest Hemingway">
+        <option value="John Grisham">
+    </datalist>
+    </div>
+</form>
+
+
+<script>
+    var datalist = jQuery('datalist');
+    var options = jQuery('datalist option');
+    var optionsarray = jQuery.map(options ,function(option) {
+        return option.value;
+    });
+    var input = jQuery('input[list]');
+    var inputcommas = (input.val().match(/,/g)||[]).length;
+    var separator = ',';
+
+    function filldatalist(prefix) {
+        if (input.val().indexOf(separator) > -1 && options.length > 0) {
+            datalist.empty();
+            for (i=0; i < optionsarray.length; i++ ) {
+                if (prefix.indexOf(optionsarray[i]) < 0 ) {
+                    datalist.append('<option value="'+prefix+optionsarray[i]+'">');
+                }
+            }
+        }
+    }
+    input.bind("change paste keyup",function() {
+        var inputtrim = input.val().replace(/^\s+|\s+$/g, "");
+        var currentcommas = (input.val().match(/,/g)||[]).length;
+        if (inputtrim != input.val()) {
+            if (inputcommas != currentcommas) {
+                var lsIndex = inputtrim.lastIndexOf(separator);
+                var str = (lsIndex != -1) ? inputtrim.substr(0, lsIndex)+", " : "";
+                filldatalist(str);
+                inputcommas = currentcommas;
+            }
+            input.val(inputtrim);
+        }
+    });
+</script>
+</body>
+</html>
