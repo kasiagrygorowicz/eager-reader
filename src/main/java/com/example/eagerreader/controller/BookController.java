@@ -8,10 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.PostConstruct;
 
 @Controller
+@RequestMapping("/book")
 public class BookController {
 
-    @GetMapping("book/add")
+    @GetMapping("/add")
     public String displayAddNewBookForm(){
         return "books/add-book";
+    }
+
+    @GetMapping("/edit")
+    public String displayEditBookForm(){
+        return "books/edit-book";
     }
 }

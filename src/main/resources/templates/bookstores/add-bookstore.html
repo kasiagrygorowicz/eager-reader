@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<header th:replace="fragments/navbar :: navbar"/>
+
+<div class="d-flex justify-content-center">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="margin-top: 10vh">
+        <form class="card shadow p-3">
+            <h1 class="text-center mb-4">Add bookstore</h1>
+            <div class="alert alert-danger mb-3">
+                Error
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="bookstore_name">Name</label>
+                <input class="form-control" id="bookstore_name" type="text">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="bookstore_link">Link to the bookstore</label>
+                <input class="form-control" id="bookstore_link" type="text">
+            </div>
+
+            <div class="d-flex flex-row gap-2" style="justify-content: space-between">
+                <button class="btn btn-outline-success w-100" type="submit">Add</button>
+                <a class="btn btn-light w-100" th:href="@{/}" type="submit">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+</script>
+</body>
+</html>
