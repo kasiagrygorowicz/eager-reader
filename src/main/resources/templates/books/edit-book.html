@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .scrollable-menu {
+            height: auto;
+            max-height: 200px;
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 <body>
 <header th:replace="fragments/navbar :: navbar"/>
 
 <div class="d-flex justify-content-center">
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="margin-top: 10vh">
-        <form class="card shadow p-3">
+        <form class="card shadow p-3" onsubmit="onSubmit()">
             <h1 class="text-center mb-4">Edit book</h1>
             <div class="alert alert-danger mb-3">
                 Error
@@ -26,6 +33,28 @@
                 <label class="form-label" for="publish_year">Publication date</label>
                 <input class="form-control" id="publish_year" rows="3" type="date"></input>
             </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="publisher_list">Publisher</label>
+                <div class="dropdown dropup">
+                    <button aria-expanded="false" class="btn btn-light dropdown-toggle w-100" data-bs-toggle="dropdown"
+                            id="publisher_list" type="button">
+                        Choose publisher
+                    </button>
+                    <ul aria-labelledby="publisher_list" class="dropdown-menu scrollable-menu w-100">
+                        <li><a class="dropdown-item" href="#">publisher 1</a></li>
+                        <li><a class="dropdown-item" href="#">publisher 2</a></li>
+                        <li><a class="dropdown-item" href="#">publisher 3</a></li>
+                        <li><a class="dropdown-item" href="#">publisher 1</a></li>
+                        <li><a class="dropdown-item" href="#">publisher 2</a></li>
+                        <li><a class="dropdown-item" href="#">publisher 3</a></li>
+                        <li><a class="dropdown-item" href="#">publisher 1</a></li>
+                        <li><a class="dropdown-item" href="#">publisher 2</a></li>
+                        <li><a class="dropdown-item" href="#">publisher 3</a></li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="mb-3">
                 <label class="form-label" for="author_list">Author(s)</label>
                 <input class="form-control" id="author_list" list="author_options" multiple
@@ -47,6 +76,12 @@
 </div>
 
 <script>
+
+
+    function onSubmit() {
+        alert(document.getElementById('author_list').value)
+    }
+
     var datalist = jQuery('datalist');
     var options = jQuery('datalist option');
     var optionsarray = jQuery.map(options, function (option) {
@@ -79,6 +114,11 @@
             }
             input.val(inputtrim);
         }
+    });
+
+    $(".dropdown-menu li a").click(function () {
+        $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+        $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
     });
 </script>
 </body>
