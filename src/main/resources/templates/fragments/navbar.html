@@ -36,6 +36,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Upcoming releases</a>
                 </li>
+                <li class="nav-item" sec:authorize="hasAuthority('admin')">
+                    <a class="nav-link" th:href="@{/admin/panel}">Admin panel</a>
+                </li>
             </ul>
 
             <!--            todo display different options for logged in user-->
@@ -46,6 +49,7 @@
                 <div sec:authorize="!isAuthenticated()">
                 <a type="button" class="btn btn-outline-success" href="/signup">Sign up</a>
                 </div>
+<!--                todo change to logged in-->
                 <div class="dropdown" sec:authorize="hasAuthority('user')">
 <!--                    <div class="dropdown-toggle">-->
                     <svg id="dropdownAccount" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle  dropdown-toggle dropstart" type="button"  data-bs-toggle="dropdown" aria-expanded="false">

@@ -1,11 +1,10 @@
-package com.example.eagerreader.service;
+package com.example.eagerreader.app.service.user;
 
-import com.example.eagerreader.entity.User;
-import com.example.eagerreader.repository.UserRepository;
+import com.example.eagerreader.app.domain.entity.User;
+import com.example.eagerreader.app.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;

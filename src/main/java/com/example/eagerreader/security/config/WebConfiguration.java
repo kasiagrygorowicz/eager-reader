@@ -1,7 +1,7 @@
 package com.example.eagerreader.security.config;
 
-import com.example.eagerreader.service.UserDetailsService;
-import com.example.eagerreader.service.UserServiceImpl;
+import com.example.eagerreader.app.domain.entity.Role;
+import com.example.eagerreader.app.service.user.UserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -35,9 +34,10 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/book/add/**").hasRole("admin")
-                .antMatchers("/singin*", "/signup*","/**")
-                .permitAll().anyRequest().authenticated().and().formLogin().loginPage("/signin")
+                .antMatchers("/singin*", "/signup*","/**").permitAll()
+                .antMatchers("/book/add/**","/author/add/**").hasRole(Role.admin.name())
+                .anyRequest().authenticated()
+                .and().formLogin().loginPage("/signin")
                 .loginProcessingUrl("/login")
                 .passwordParameter("password")
                 .usernameParameter("email")

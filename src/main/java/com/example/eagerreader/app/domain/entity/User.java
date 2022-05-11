@@ -1,22 +1,17 @@
-package com.example.eagerreader.entity;
+package com.example.eagerreader.app.domain.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.thymeleaf.expression.Sets;
 
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "user")
 @NoArgsConstructor
 public class User implements UserDetails {
 
