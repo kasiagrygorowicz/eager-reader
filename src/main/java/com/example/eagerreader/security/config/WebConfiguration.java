@@ -35,7 +35,7 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/singin*", "/signup*","/**").permitAll()
-                .antMatchers("/book/add/**","/author/add/**").hasRole(Role.admin.name())
+                .antMatchers("/book/add/**","/publisher/add/**").hasRole(Role.admin.name())
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/signin")
                 .loginProcessingUrl("/login")

@@ -2,8 +2,8 @@ package com.example.eagerreader.app.controller.author;
 
 import com.example.eagerreader.app.dto.author.CreateAuthorDTO;
 import com.example.eagerreader.app.dto.author.EditAuthorDTO;
-import com.example.eagerreader.app.exception.authorException.AuthorNotFoundException;
-import com.example.eagerreader.app.exception.authorException.DuplicateAuthorException;
+import com.example.eagerreader.app.exception.authorException.author.AuthorNotFoundException;
+import com.example.eagerreader.app.exception.authorException.author.DuplicateAuthorException;
 import com.example.eagerreader.app.service.author.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public class PrivilegedAuthorController {
     private final AuthorService authorService;
     private final Logger log = LoggerFactory.getLogger(PrivilegedAuthorController.class);
 
-//    == add author ==
+//    == add publisher ==
 
     @GetMapping("/add")
     public String displayAddNewAuthorForm(Model model) {
@@ -44,11 +44,11 @@ public class PrivilegedAuthorController {
             return "redirect:/author/add";
         }
 
-        attributes.addFlashAttribute("success", "New author added successfully");
+        attributes.addFlashAttribute("success", "New publisher added successfully");
         return "redirect:pages/authors/all-authors";
     }
 
-//    == edit author ==
+//    == edit publisher ==
 
     @GetMapping("/edit/{id}")
     public String displayEditAuthorForm(Model model, @PathVariable Long id) {
@@ -68,11 +68,11 @@ public class PrivilegedAuthorController {
             attributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/authors/all";
         }
-        attributes.addFlashAttribute("success", "New author added successfully");
+        attributes.addFlashAttribute("success", "Author edited successfully");
         return "redirect:/authors/all";
     }
 
-//    == delete author ==
+//    == delete publisher ==
     @GetMapping("/delete/{id}")
     public String deleteAuthor(@PathVariable Long id){
         System.out.println("deleting");

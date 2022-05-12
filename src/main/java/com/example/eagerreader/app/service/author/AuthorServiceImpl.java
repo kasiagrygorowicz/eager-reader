@@ -5,19 +5,14 @@ import com.example.eagerreader.app.domain.repository.AuthorRepository;
 import com.example.eagerreader.app.dto.author.AuthorDTO;
 import com.example.eagerreader.app.dto.author.CreateAuthorDTO;
 import com.example.eagerreader.app.dto.author.EditAuthorDTO;
-import com.example.eagerreader.app.exception.authorException.AuthorNotFoundException;
-import com.example.eagerreader.app.exception.authorException.DuplicateAuthorException;
+import com.example.eagerreader.app.exception.authorException.author.AuthorNotFoundException;
+import com.example.eagerreader.app.exception.authorException.author.DuplicateAuthorException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.PersistenceException;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -51,7 +46,7 @@ public class AuthorServiceImpl implements AuthorService {
 //          find duplicate
             findAuthorByFirstnameAndLastname(author.getFirstname(), author.getLastname());
         }
-        log.debug("Saving author");
+        log.debug("Saving publisher");
         oldAuthor.setFirstname(author.getFirstname());
         oldAuthor.setLastname(author.getLastname());
         oldAuthor.setInfo(author.getInfo());

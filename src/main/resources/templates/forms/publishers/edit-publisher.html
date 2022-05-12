@@ -3,36 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <style>
-        .scrollable-menu {
-            height: auto;
-            max-height: 200px;
-            overflow-x: hidden;
-        }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
 </head>
 <body>
 <header th:replace="fragments/navbar :: navbar"/>
 
 <div class="d-flex justify-content-center">
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="margin-top: 10vh">
-        <form class="card shadow p-3" onsubmit="onSubmit()">
+        <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
+        <ul th:if="${#fields.hasErrors('${publisher.*}')}" class="alert alert-danger list-unstyled">
+            <li th:each="err : ${#fields.errors('publisher.*')}" th:text="${err}" />
+        </ul>
+        <form class="card shadow p-3" th:action="@{/publisher/edit/__${id}__}" th:method="put" th:object="${publisher}">
             <h1 class="text-center mb-4">Edit publisher</h1>
-            <div class="alert alert-danger mb-3">
-                Error
-            </div>
             <div class="mb-3">
                 <label class="form-label" for="publisher_name">Name</label>
-                <input class="form-control" id="publisher_name" type="text">
+                <input class="form-control" id="publisher_name" type="text" th:field="*{name}">
             </div>
             <div class="mb-3">
                 <label class="form-label" for="publisher_location">Location</label>
-                <input class="form-control" id="publisher_location" type="text">
+                <input class="form-control" id="publisher_location" type="text" th:field="*{location}">
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="founding_date">Founding date</label>
-                <input class="form-control" id="founding_date" data-format="dd/MM/yyyy hh:mm:ss"  rows="3" type="date"/>
+                <input class="form-control" name="datepicker" id="founding_date" rows="3" th:field="*{founded}" th:value="*{founded}"/>
 
             </div>
 
@@ -45,7 +40,19 @@
     </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 
+<script>
+    $(document).ready(function(){
+        $("#founding_date").datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years",
+            autoclose:true //to close picker once year is selected
+        });
+    })
+</script>
 
 </body>
 </html>

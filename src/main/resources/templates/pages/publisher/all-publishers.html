@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+
+
+</head>
+<body>
+<header th:replace="fragments/navbar :: navbar"/>
+
+<div class="d-flex justify-content-center">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12 " style="margin-top: 10vh">
+        <div class="alert alert-success w-50 m-auto" role="alert" th:if="${success}" th:text="${success}"></div>
+        <div class="card w-50 m-auto mb-3" th:each="publisher : ${publishers}" >
+            <div class="card-body shadow-sm">
+                <h5 class="card-title mb-3 text-success" th:text="${publisher.name}"/>
+                <div class="d-flex flex-row gap-1">
+                    <strong>Location:</strong>
+                    <p th:text="${publisher.location}"/>
+                </div>
+                <div class="d-flex flex-row gap-1">
+                <strong th:if="${publisher.founded} != null" th:text="'Founded: '"/>
+                    <p th:if="${publisher.founded} != null" th:text="${publisher.founded}"/>
+                </div>
+                </div>
+            <div class="card-body" sec:authorize="hasAuthority('admin')">
+                <a th:href="@{/publisher/delete/__${publisher.id}__}" type="button" class="btn btn-outline-danger">Delete</a>
+                <a th:href="@{/publisher/edit/__${publisher.id}__}" type="button" class="btn btn-outline-primary">Edit</a>
+
+            </div>
+        </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

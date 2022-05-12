@@ -15,7 +15,7 @@
                     <h5 class="card-title" th:text="${author.firstname}+' '+${author.lastname}"></h5>
                     <p class="card-text text-truncate" style="max-width: 100%; max-height: 100px" th:text="${author.info}"></p>
                     <a th:href="@{/authors/details/__${author.id}__}" class="card-link">See profile</a>
-                    <a sec:authorize="hasAuthority('admin')" th:href="@{/author/delete/__${author.id}__}" class="card-link">Delete</a>
+                    <a sec:authorize="hasAuthority('admin')" th:href="@{/author/delete/__${author.id}__}" class="card-link link-danger">Delete</a>
                     <a sec:authorize="hasAuthority('admin')" th:href="@{/author/edit/__${author.id}__}" class="card-link">Edit</a>
                 </div>
             </div>
