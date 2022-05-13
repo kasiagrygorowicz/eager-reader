@@ -60,8 +60,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void deleteAuthor(Long id) {
-        Author author = findAuthorById(id);
-        authorRepository.delete(author);
+        authorRepository.delete(findAuthorById(id));
     }
 
     private Author findAuthorById(Long id) {
@@ -79,17 +78,17 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
 
-    private class AuthorMapper {
+    public class AuthorMapper {
 
-        private static Author map(CreateAuthorDTO author) {
+        public static Author map(CreateAuthorDTO author) {
             return new Author(author.getFirstname(), author.getLastname(), author.getInfo());
         }
 
-        private static EditAuthorDTO map(Author author) {
+        public static EditAuthorDTO map(Author author) {
             return new EditAuthorDTO(author.getFirstname(), author.getLastname(), author.getInfo());
         }
 
-        private static AuthorDTO map2(Author author){
+        public static AuthorDTO map2(Author author){
             return new AuthorDTO(author.getId(), author.getFirstname(),author.getLastname(),author.getInfo());
         }
     }

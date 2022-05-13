@@ -12,4 +12,6 @@ public interface PublisherService {
     List<PublisherDTO> getAllPublishers();
     EditPublisherDTO getPublisherToEdit(Long id);
     void editPublisher(EditPublisherDTO publisher, Long id);
+    void deletePublisher(Long id);
+
 }

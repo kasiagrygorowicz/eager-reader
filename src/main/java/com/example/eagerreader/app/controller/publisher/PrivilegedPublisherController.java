@@ -70,4 +70,12 @@ public class PrivilegedPublisherController {
         return "redirect:/publishers/all";
     }
 
+    //    == delete publisher ==
+    @GetMapping("/delete/{id}")
+    public String deleteAuthor(@PathVariable Long id,RedirectAttributes attributes){
+        publisherService.deletePublisher(id);
+        attributes.addFlashAttribute("success", "Publisher deleted successfully");
+        return "redirect:/publishers/all";
+    }
+
 }

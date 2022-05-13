@@ -26,7 +26,7 @@ public class PrivilegedAuthorController {
     private final AuthorService authorService;
     private final Logger log = LoggerFactory.getLogger(PrivilegedAuthorController.class);
 
-//    == add publisher ==
+//    == add author ==
 
     @GetMapping("/add")
     public String displayAddNewAuthorForm(Model model) {
@@ -44,11 +44,11 @@ public class PrivilegedAuthorController {
             return "redirect:/author/add";
         }
 
-        attributes.addFlashAttribute("success", "New publisher added successfully");
+        attributes.addFlashAttribute("success", "New author added successfully");
         return "redirect:pages/authors/all-authors";
     }
 
-//    == edit publisher ==
+//    == edit author ==
 
     @GetMapping("/edit/{id}")
     public String displayEditAuthorForm(Model model, @PathVariable Long id) {
@@ -72,11 +72,11 @@ public class PrivilegedAuthorController {
         return "redirect:/authors/all";
     }
 
-//    == delete publisher ==
+//    == delete author ==
     @GetMapping("/delete/{id}")
-    public String deleteAuthor(@PathVariable Long id){
-        System.out.println("deleting");
+    public String deleteAuthor(@PathVariable Long id,RedirectAttributes attributes){
         authorService.deleteAuthor(id);
+        attributes.addFlashAttribute("success", "Author deleted successfully");
         return "redirect:/authors/all";
     }
 

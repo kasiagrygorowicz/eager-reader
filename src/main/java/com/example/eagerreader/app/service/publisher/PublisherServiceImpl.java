@@ -58,6 +58,12 @@ public class PublisherServiceImpl implements PublisherService {
         publisherRepository.save(oldPublisher);
     }
 
+    @Override
+    public void deletePublisher(Long id) {
+        publisherRepository.delete(findPublisherById(id));
+
+    }
+
     private void findPublisherByName(String name) {
         publisherRepository.findByName(name).ifPresent(
                 publisher -> {

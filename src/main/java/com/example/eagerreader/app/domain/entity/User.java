@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,6 +29,16 @@ public class User implements UserDetails {
     @Column
     @Enumerated(EnumType.STRING)
     private Role role;
+
+//    @OneToMany
+//    private List<Review> reviews;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "favorites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> favorites;
 
     public User(String email, String password, Role role) {
         this.email = email;

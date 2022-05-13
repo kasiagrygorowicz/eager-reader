@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,11 +27,19 @@ public class Author {
     @Column(nullable=true, length = 3000)
     private String info;
 
-//    todo add birthday
+    @ManyToMany(mappedBy = "authors")
+    private List<Book> books;
 
     public Author(String firstname, String lastname, String info) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.info = info;
+    }
+
+    public Author(String firstname, String lastname, String info, List<Book> books) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.info = info;
+        this.books = books;
     }
 }

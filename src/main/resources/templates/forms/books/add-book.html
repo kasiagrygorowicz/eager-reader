@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
     <style>
         .scrollable-menu {
             height: auto;
@@ -16,55 +17,38 @@
 
 <div class="d-flex justify-content-center">
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="margin-top: 10vh">
-        <form class="card shadow p-3" onsubmit="onSubmit()">
+        <form class="card shadow p-3" th:object="${book}" th:action="@{/book/add}" th:method="post">
             <h1 class="text-center mb-4">Add book</h1>
             <div class="alert alert-danger mb-3">
                 Error
             </div>
             <div class="mb-3">
                 <label class="form-label" for="book_title">Title</label>
-                <input class="form-control" id="book_title" type="text">
+                <input class="form-control" id="book_title" type="text" th:field="*{title}">
             </div>
             <div class="mb-3">
                 <label class="form-label" for="book_synopsis">Synopsis</label>
-                <textarea class="form-control" id="book_synopsis" rows="3"></textarea>
+                <textarea class="form-control" id="book_synopsis" rows="3" th:field="*{description}"></textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="publish_year">Publication date</label>
-                <input class="form-control" id="publish_year" rows="3" type="date"></input>
+                <input class="form-control" id="publish_year" rows="3" type="text" name="datepicker" th:field="*{published}"></input>
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="publisher_list">Publisher</label>
-                <div class="dropdown dropup">
-                    <button aria-expanded="false" class="btn btn-light dropdown-toggle w-100" data-bs-toggle="dropdown"
-                            id="publisher_list" type="button">
-                        Choose publisher
-                    </button>
-                    <ul aria-labelledby="publisher_list" class="dropdown-menu scrollable-menu w-100">
-                        <li><a class="dropdown-item" href="#">publisher 1</a></li>
-                        <li><a class="dropdown-item" href="#">publisher 2</a></li>
-                        <li><a class="dropdown-item" href="#">publisher 3</a></li>
-                        <li><a class="dropdown-item" href="#">publisher 1</a></li>
-                        <li><a class="dropdown-item" href="#">publisher 2</a></li>
-                        <li><a class="dropdown-item" href="#">publisher 3</a></li>
-                        <li><a class="dropdown-item" href="#">publisher 1</a></li>
-                        <li><a class="dropdown-item" href="#">publisher 2</a></li>
-                        <li><a class="dropdown-item" href="#">publisher 3</a></li>
-                    </ul>
-                </div>
+                <select id="publisher_list" th:field="*{publisher}" class="w-100" th:default="'Choose publisher'">
+                    <option th:each="p : ${publishers}" th:value="${p.name}" th:text="${p.name}"></option>
+                </select>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3" th:object="${authors}">
                 <label class="form-label" for="author_list">Author(s)</label>
                 <input class="form-control" id="author_list" list="author_options" multiple
-                       placeholder="Type to search...">
-                <datalist id="author_options">
-                    <option value="Jane Austin">
-                    <option value="Emily Dickinson">
-                    <option value="William Blake">
-                    <option value="Ernest Hemingway">
-                    <option value="John Grisham">
+                       placeholder="Type to search..."  th:field="${book.author}">
+                <datalist id="author_options" th:each="a :${authors}" >
+                    <option th:value="${a.firstname}+' '+${a.lastname}">
+
                 </datalist>
             </div>
             <div class="d-flex flex-row gap-2" style="justify-content: space-between">
@@ -74,13 +58,11 @@
         </form>
     </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 <script>
 
 
-    function onSubmit() {
-        alert(document.getElementById('author_list').value)
-    }
 
     var datalist = jQuery('datalist');
     var options = jQuery('datalist option');
@@ -116,10 +98,22 @@
         }
     });
 
-    $(".dropdown-menu li a").click(function () {
+    $(".dropdown-menu li").click(function () {
         $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
         $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
     });
+
+
+    $(document).ready(function(){
+        $("#publish_year").datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years",
+            autoclose:true //to close picker once year is selected
+        });
+    })
+
+
 </script>
 </body>
 </html>

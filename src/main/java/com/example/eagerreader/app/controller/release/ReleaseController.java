@@ -1,4 +1,4 @@
-package com.example.eagerreader.app.controller;
+package com.example.eagerreader.app.controller.release;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

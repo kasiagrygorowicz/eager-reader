@@ -7,7 +7,9 @@ import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,10 +30,19 @@ public class Publisher {
     @Column(nullable=true)
     private Long founded;
 
+    @OneToMany(
+            mappedBy = "publisher",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Book> books;
+
+
 
     public Publisher(String name, String location, Long founded) {
         this.name = name;
         this.location = location;
         this.founded = founded;
+        this.books=new ArrayList<>();
     }
 }
