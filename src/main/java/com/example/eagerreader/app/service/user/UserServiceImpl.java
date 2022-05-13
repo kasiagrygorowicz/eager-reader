@@ -1,9 +1,9 @@
 package com.example.eagerreader.app.service.user;
 
 import com.example.eagerreader.app.dto.CreateUserDto;
-import com.example.eagerreader.app.domain.entity.Role;
-import com.example.eagerreader.app.domain.entity.User;
-import com.example.eagerreader.app.domain.repository.UserRepository;
+import com.example.eagerreader.app.entity.Role;
+import com.example.eagerreader.app.entity.User;
+import com.example.eagerreader.app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

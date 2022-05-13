@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+
+<header th:replace="fragments/navbar :: navbar"/>
+<div class="d-flex justify-content-center">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12" style="margin-top: 5vh">
+        <div class="alert alert-success m-auto mb-3" role="alert" style="width: 90%;" th:if="${success}"
+             th:text="${success}"></div>
+        <div class="alert alert-danger m-auto mb-2" role="alert" style="width: 90%;" th:if="${error}"
+             th:text="${error}"></div>
+        <div class="d-flex justify-content-end" style="width: 90%;">
+            <a class="card-link btn btn-outline-primary text-end" th:href="@{/bookstore/add}"
+               type="button">Add new bookstore</a>
+        </div>
+
+        <table class="table m-auto" style="width: 90%;">
+            <thead>
+            <tr>
+                <th scope="col">Bookstore</th>
+                <th scope="col">Link</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="b : ${bookstores}">
+                <th scope="row" th:text="${b.name}"></th>
+                <td><a th:href="${b.link}" th:text="${b.link}">
+
+                </a></td>
+                <td><a class="card-link link-danger" sec:authorize="hasAuthority('admin')" th:href="@{/bookstore/delete/__${b.id}__}"
+                       type="button">Delete</a></td>
+                <td><a class="card-link" sec:authorize="hasAuthority('admin')" th:href="@{/bookstore/edit/__${b.id}__}"
+                       type="button">Edit</a></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

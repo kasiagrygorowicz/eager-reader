@@ -1,6 +1,6 @@
 package com.example.eagerreader.security.config;
 
-import com.example.eagerreader.app.domain.entity.Role;
+import com.example.eagerreader.app.entity.Role;
 import com.example.eagerreader.app.service.user.UserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

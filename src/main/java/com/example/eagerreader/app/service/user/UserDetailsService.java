@@ -1,7 +1,7 @@
 package com.example.eagerreader.app.service.user;
 
-import com.example.eagerreader.app.domain.entity.User;
-import com.example.eagerreader.app.domain.repository.UserRepository;
+import com.example.eagerreader.app.entity.User;
+import com.example.eagerreader.app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -1,15 +1,14 @@
 package com.example.eagerreader.app.service.book;
 
 
-import com.example.eagerreader.app.domain.entity.Author;
-import com.example.eagerreader.app.domain.entity.Book;
-import com.example.eagerreader.app.domain.entity.Publisher;
-import com.example.eagerreader.app.domain.repository.AuthorRepository;
-import com.example.eagerreader.app.domain.repository.BookRepository;
-import com.example.eagerreader.app.domain.repository.PublisherRepository;
+import com.example.eagerreader.app.entity.Author;
+import com.example.eagerreader.app.entity.Book;
+import com.example.eagerreader.app.entity.Publisher;
+import com.example.eagerreader.app.repository.AuthorRepository;
+import com.example.eagerreader.app.repository.BookRepository;
+import com.example.eagerreader.app.repository.PublisherRepository;
 import com.example.eagerreader.app.dto.author.AuthorDTO;
 import com.example.eagerreader.app.dto.book.BookDTO;
-import com.example.eagerreader.app.dto.book.BookDetailsDTO;
 import com.example.eagerreader.app.dto.book.CreateBookDTO;
 import com.example.eagerreader.app.dto.book.EditBookDTO;
 import com.example.eagerreader.app.exception.authorException.author.AuthorNotFoundException;

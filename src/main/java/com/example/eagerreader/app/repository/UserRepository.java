@@ -1,6 +1,6 @@
-package com.example.eagerreader.app.domain.repository;
+package com.example.eagerreader.app.repository;
 
-import com.example.eagerreader.app.domain.entity.User;
+import com.example.eagerreader.app.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

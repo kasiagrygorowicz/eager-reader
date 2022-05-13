@@ -1,22 +1,15 @@
 package com.example.eagerreader.app.service.publisher;
 
-import com.example.eagerreader.app.domain.entity.Author;
-import com.example.eagerreader.app.domain.entity.Publisher;
-import com.example.eagerreader.app.domain.repository.PublisherRepository;
+import com.example.eagerreader.app.entity.Publisher;
+import com.example.eagerreader.app.repository.PublisherRepository;
 import com.example.eagerreader.app.dto.publisher.CreatePublisherDTO;
 import com.example.eagerreader.app.dto.publisher.EditPublisherDTO;
 import com.example.eagerreader.app.dto.publisher.PublisherDTO;
 import com.example.eagerreader.app.exception.authorException.author.AuthorNotFoundException;
 import com.example.eagerreader.app.exception.authorException.publisher.DuplicatePublisherException;
-import com.example.eagerreader.app.service.author.AuthorServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +57,7 @@ public class PublisherServiceImpl implements PublisherService {
 
     }
 
+//    todo correct exception
     private void findPublisherByName(String name) {
         publisherRepository.findByName(name).ifPresent(
                 publisher -> {

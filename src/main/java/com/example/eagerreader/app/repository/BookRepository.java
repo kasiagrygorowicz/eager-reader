@@ -1,7 +1,6 @@
-package com.example.eagerreader.app.domain.repository;
+package com.example.eagerreader.app.repository;
 
-import com.example.eagerreader.app.domain.entity.Book;
-import lombok.RequiredArgsConstructor;
+import com.example.eagerreader.app.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

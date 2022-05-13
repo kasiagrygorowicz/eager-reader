@@ -1,7 +1,7 @@
 package com.example.eagerreader.app.service.author;
 
-import com.example.eagerreader.app.domain.entity.Author;
-import com.example.eagerreader.app.domain.repository.AuthorRepository;
+import com.example.eagerreader.app.entity.Author;
+import com.example.eagerreader.app.repository.AuthorRepository;
 import com.example.eagerreader.app.dto.author.AuthorDTO;
 import com.example.eagerreader.app.dto.author.CreateAuthorDTO;
 import com.example.eagerreader.app.dto.author.EditAuthorDTO;

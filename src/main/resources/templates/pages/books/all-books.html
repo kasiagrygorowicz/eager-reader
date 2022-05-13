@@ -8,14 +8,19 @@
 <header th:replace="fragments/navbar :: navbar"/>
 <div class="d-flex justify-content-center">
     <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12" style="margin-top: 5vh">
-        <div class="dropdown bg-danger mb-3 w-100 align-items-end justify-content-end">
-            <button class="btn btn-secondary dropdown-toggle justify-content-end" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-               Filter
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" th:href="@{/books?filter=highest_rating}" >Highest rating</a></li>
-                <li><a class="dropdown-item" th:href="@{/books?filter=lowest_rating}">Lowest rating</a></li>
-            </ul>
+        <div class="d-flex justify-content-end  gap-3 w-75 m-auto mb-3">
+            <a class="card-link btn btn-outline-primary text-end" th:href="@{/book/add}"
+               type="button">Add book</a>
+            <div class="dropdown text-end">
+                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle justify-content-end"
+                        data-bs-toggle="dropdown" id="dropdownMenuButton1" type="button">
+                    Filter
+                </button>
+                <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/books?filter=highest_rating}">Highest rating</a></li>
+                    <li><a class="dropdown-item" th:href="@{/books?filter=lowest_rating}">Lowest rating</a></li>
+                </ul>
+            </div>
         </div>
 
         <div class="alert alert-danger w-75 m-auto mb-2" role="alert" th:if="${error}" th:text="${error}"></div>
@@ -35,10 +40,10 @@
                             <a class="card-link btn btn-outline-primary" th:href="@{/book/__${book.bookId}__}"
                                type="button">Book
                                 details</a>
-                            <a class="card-link link-danger" sec:authorize="hasAuthority('admin')"
-                               th:href="@{/book/delete/__${book.bookId}__}">Delete</a>
-                            <a class="card-link" sec:authorize="hasAuthority('admin')"
-                               th:href="@{/book/edit/__${book.bookId}__}">Edit</a>
+                            <a class="card-link link-danger" sec:authorize="hasAuthority('admin')" th:href="@{/book/delete/__${book.bookId}__}"
+                               type="button">Delete</a>
+                            <a class="card-link" sec:authorize="hasAuthority('admin')" th:href="@{/book/edit/__${book.bookId}__}"
+                               type="button">Edit</a>
                         </div>
                     </div>
 
