@@ -1,10 +1,9 @@
 package com.example.eagerreader.app.service.author;
 
+import com.example.eagerreader.app.dto.author.*;
 import com.example.eagerreader.app.entity.Author;
+import com.example.eagerreader.app.entity.Book;
 import com.example.eagerreader.app.repository.AuthorRepository;
-import com.example.eagerreader.app.dto.author.AuthorDTO;
-import com.example.eagerreader.app.dto.author.CreateAuthorDTO;
-import com.example.eagerreader.app.dto.author.EditAuthorDTO;
 import com.example.eagerreader.app.exception.authorException.author.AuthorNotFoundException;
 import com.example.eagerreader.app.exception.authorException.author.DuplicateAuthorException;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +62,13 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepository.delete(findAuthorById(id));
     }
 
+    @Override
+    public AuthorDetailsDTO getAuthorDetails(Long id) {
+       Author author = findAuthorById(id);
+       List<AuthorBookDTO> books = author.getBooks().stream().map(AuthorMapper::map).collect(Collectors.toList());
+       return new AuthorDetailsDTO(author.getFirstname(),author.getLastname(),author.getInfo(),books);
+    }
+
     private Author findAuthorById(Long id) {
         return authorRepository.findById(id).orElseThrow(
                 () -> new AuthorNotFoundException("Author with the id " + id + " does not exists")
@@ -79,6 +85,10 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     public class AuthorMapper {
+
+        private static AuthorBookDTO map(Book book){
+            return new AuthorBookDTO(book.getId(), book.getTitle());
+        }
 
         public static Author map(CreateAuthorDTO author) {
             return new Author(author.getFirstname(), author.getLastname(), author.getInfo());

@@ -72,17 +72,17 @@ public class PublisherServiceImpl implements PublisherService {
         );
     }
 
-    private class PublisherMapper {
+    public class PublisherMapper {
 
-        private static Publisher map(CreatePublisherDTO publisher) {
+        public static Publisher map(CreatePublisherDTO publisher) {
             return new Publisher(publisher.getName(), publisher.getLocation(), Long.parseLong(publisher.getFounded()));
         }
 
-        private static PublisherDTO map(Publisher publisher) {
+        public static PublisherDTO map(Publisher publisher) {
             return new PublisherDTO(publisher.getId(), publisher.getName(), publisher.getLocation(), publisher.getFounded()==null ?null :publisher.getFounded().toString());
         }
 
-        private static EditPublisherDTO map2(Publisher publisher) {
+        public static EditPublisherDTO map2(Publisher publisher) {
             return new EditPublisherDTO(publisher.getName(), publisher.getLocation(),publisher.getFounded().toString());
         }
     }

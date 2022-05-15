@@ -37,4 +37,7 @@ public class BookDetailsDTO {
 
     @Nullable
     private boolean isFavorite;
+
+    @Nullable
+    private Long rating;
 }

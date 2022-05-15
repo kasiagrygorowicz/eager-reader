@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Author details</title>
 </head>
 <body>
+
+<header th:replace="fragments/navbar :: navbar"/>
+<div class="d-flex justify-content-center">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-10 col-xl-10" style="margin-top: 5vh">
+
+        <ul th:if="${#fields.hasErrors('${author.*}')}" class="alert alert-danger list-unstyled">
+            <li th:each="err : ${#fields.errors('author.*')}" th:text="${err}" />
+        </ul>
+        <div class="alert alert-danger w-75 m-auto mb-2" role="alert" th:if="${error}" th:text="${error}"></div>
+        <div class="alert alert-success w-75 m-auto mb-2" role="alert" th:if="${success}" th:text="${success}"></div>
+        <div class="d-flex justify-content-end  gap-3 w-100 m-5o mb-3" sec:authorize="hasAuthority('admin')">
+            <a class="card-link btn btn-outline-primary text-end" th:href="@{/book/add}"
+               type="button">Add book</a>
+            <a class="card-link btn btn-outline-primary text-end" th:href="@{/book/edit/__${id}__}"
+               type="button">Edit book</a>
+            <a class="card-link btn btn-outline-danger text-end" th:href="@{/book/delete/__${id}__}"
+               type="button">Delete book</a>
+        </div>
+        <div>
+            <div class="d-flex flex-row justify-content-between">
+                <h1 th:text="${author.firstname}+' '+${author.lastname}"/>
+            </div>
+            <hr/>
+            <div class="d-flex flex-row justify-content-between gap-1">
+                <div class="col-7">
+                    <p th:text="${author.info}!=null ? ${author.info} : 'Not information about this author'"/>
+
+                </div>
+                <div class="col-3 d-flex flex-column">
+                    <div class="w-100 mb-3 ">
+                        <a class="w-100 card-link btn btn-outline-primary" th:href="@{/authors/__${id}__/details/export}"
+                           type="button">Export author's books</a>
+                    </div>
+
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Book(s): </strong>
+                                <ul>
+                                    <li>
+                                        <a class="text-decoration-none" th:each="a :${author.books}"
+                                           th:href="@{/books/book/__${a.id}__}"
+                                           th:text="${a.title}"/>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+
+
+
+    </div>
+
+</div>
+
+</div>
+</div>
 
 </body>
 </html>

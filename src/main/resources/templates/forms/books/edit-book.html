@@ -17,6 +17,10 @@
 
 <div class="d-flex justify-content-center">
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="margin-top: 10vh">
+        <ul th:if="${#fields.hasErrors('${book.*}')}" class="alert alert-danger list-unstyled">
+            <li th:each="err : ${#fields.errors('book.*')}" th:text="${err}" />
+        </ul>
+        <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
         <form class="card shadow p-3" th:object="${book}" th:action="@{/book/edit/__${id}__}" th:method="put">
             <h1 class="text-center mb-4">Edit book</h1>
             <div class="mb-3">
@@ -48,13 +52,10 @@
                 </datalist>
             </div>
 
-            <div class="mb-3" th:object="${bookstores}">
-                <label class="form-label" for="bookstore_list">Bookstore(s)</label>
-                <input class="form-control" id="bookstore_list" list="bookstore_options" multiple
-                       placeholder="Type to search..."  th:field="${book.bookstores}">
-                <datalist id="bookstore_options" th:each="a :${bookstores}" th:default="${book.bookstores}">
-                    <option th:value="${a.name}">
-                </datalist>
+            <div class="mb-3">
+                <label class="form-label" for="ert">Bookstore(s)</label>
+                <input class="form-control" id="ert" th:value="${bookstores}" th:field="*{bookstores}" type="text"/>
+
             </div>
             <div class="d-flex flex-row gap-2" style="justify-content: space-between">
                 <button class="btn btn-outline-success w-100" type="submit">Save</button>

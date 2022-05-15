@@ -17,11 +17,9 @@
 
 <div class="d-flex justify-content-center">
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="margin-top: 10vh">
+        <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
         <form class="card shadow p-3" th:object="${book}" th:action="@{/book/add}" th:method="post">
             <h1 class="text-center mb-4">Add book</h1>
-            <div class="alert alert-danger mb-3">
-                Error
-            </div>
             <div class="mb-3">
                 <label class="form-label" for="book_title">Title</label>
                 <input class="form-control" id="book_title" type="text" th:field="*{title}">

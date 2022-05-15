@@ -63,16 +63,16 @@ public class BookstoreServiceImpl implements BookstoreService {
     }
 
 
-    private class BookstoreMapper {
-        private static BookstoreDTO map(Bookstore bookstore) {
+    public class BookstoreMapper {
+        public static BookstoreDTO map(Bookstore bookstore) {
             return new BookstoreDTO(bookstore.getId(), bookstore.getName(), bookstore.getLink());
         }
 
-        private static Bookstore map(CreateBookstoreDTO bookstore) {
+        public static Bookstore map(CreateBookstoreDTO bookstore) {
             return new Bookstore(bookstore.getName(), bookstore.getLink());
         }
 
-        private static CreateBookstoreDTO map2(Bookstore bookstore) {
+        public static CreateBookstoreDTO map2(Bookstore bookstore) {
             return new CreateBookstoreDTO(bookstore.getName(), bookstore.getLink());
         }
 

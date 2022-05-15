@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -21,8 +22,8 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}/details")
-    public String displayAuthorDetailsPage(Model model){
-        model.addAttribute("authors",authorService.getAllAuthors());
+    public String displayAuthorDetailsPage(@PathVariable Long id,Model model){
+        model.addAttribute("author",authorService.getAuthorDetails(id));
         return "pages/authors/author-details";
     }
 }
