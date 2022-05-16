@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,8 +62,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<BookDTO> getFavorites() {
         User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<BookDTO> books =new ArrayList<>();
         List<Book> f =user.getFavorites();
-        return f.stream().map(BookServiceImpl.BookMapper::map).collect(Collectors.toList());
+        for(Book b:f){
+            books.add(BookServiceImpl.BookMapper.map(bookRepository.getById(b.getId())));
+        }
+        return books;
     }
 
     private class Mapper {

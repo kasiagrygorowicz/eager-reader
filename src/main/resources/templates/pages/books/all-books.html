@@ -9,7 +9,7 @@
 <div class="d-flex justify-content-center">
     <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12" style="margin-top: 5vh">
         <div class="d-flex justify-content-end  gap-3 w-75 m-auto mb-3">
-            <a class="card-link btn btn-outline-primary text-end" th:href="@{/book/add}"
+            <a sec:authorize="hasAuthority('admin')" class="card-link btn btn-outline-primary text-end" th:href="@{/book/add}"
                type="button">Add book</a>
 <!--            filter by rating-->
             <div class="dropdown text-end">
@@ -18,23 +18,24 @@
 
                 </button>
                 <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
-                    <li><a class="dropdown-item" th:href="@{/books?filter=highest_rating}">Highest rating</a></li>
-                    <li><a class="dropdown-item" th:href="@{/books?filter=lowest_rating}">Lowest rating</a></li>
+                    <li><a class="dropdown-item" th:href="@{/books?filter=highest_rating&authorFilter=all}">Highest rating</a></li>
+                    <li><a class="dropdown-item" th:href="@{/books?filter=lowest_rating&authorFilter=all}">Lowest rating</a></li>
                 </ul>
             </div>
 <!--filter by author-->
 
             <div class="dropdown text-end">
                 <button aria-expanded="false" class="btn btn-secondary dropdown-toggle justify-content-end"
-                        data-bs-toggle="dropdown" id="dropdownMenuButton2" type="button"
-                        th:value="${filterAuthor.filter}" th:text="
-                        filterAuthor.filter=='all' ? 'all authors' :
-                        ${filterAuthor.firstname}+' '+${filterAuthor.lastname}">
+                        data-bs-toggle="dropdown" id="dropdownMenuButton2" type="button" th:value="${authorFilter}" th:text="${currentAuthor}"
+                       >
 
                 </button>
                 <ul aria-labelledby="dropdownMenuButton2" class="dropdown-menu">
                     <li><a class="dropdown-item" th:each="p : ${authors}" th:value="${p.id}" th:text="${p.firstname+' '+p.lastname}"
-                           th:href="@{'/books?filterAuthor='+${p.id}}">Highest rating</a></li>
+                           th:href="@{'/books?filter=all&authorFilter='+${p.id}}"></a></li>
+                    <li><a class="dropdown-item" th:href="@{'/books?filter='+${filter}+'&authorFilter=all'}">
+                    </a>
+                    </li>
 
                 </ul>
             </div>

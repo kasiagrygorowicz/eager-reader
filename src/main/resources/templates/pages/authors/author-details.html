@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-3 d-flex flex-column">
                     <div class="w-100 mb-3 ">
-                        <a class="w-100 card-link btn btn-outline-primary" th:href="@{/authors/__${id}__/details/export}"
+                        <a class="w-100 card-link btn btn-outline-primary" th:href="@{/author/export/__${id}__}"
                            type="button">Export author's books</a>
                     </div>
 
@@ -42,8 +42,8 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Book(s): </strong>
                                 <ul>
-                                    <li>
-                                        <a class="text-decoration-none" th:each="a :${author.books}"
+                                    <li th:each="a :${author.books}">
+                                        <a class="text-decoration-none"
                                            th:href="@{/books/book/__${a.id}__}"
                                            th:text="${a.title}"/>
                                     </li>

@@ -5,6 +5,22 @@
 </head>
 <body>
 <header th:replace="fragments/navbar :: navbar"/>
-<a th:href="@{/author/add}">Add new author</a>
+<div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12 m-5" style="margin-top: 5vh">
+    <div  class="d-flex flex-column mb-5">
+        <h1> Add</h1>
+    <a th:href="@{/author/add}">Add new author</a>
+    <a th:href="@{/book/add}">Add new book</a>
+    <a th:href="@{/bookstore/add}">Add new bookstore</a>
+    <a th:href="@{/publisher/add}">Add new publisher</a>
+    </div>
+    <div class="d-flex flex-column">
+        <h1> Display</h1>
+        <a th:href="@{/authors/all}">Display authors</a>
+        <a th:href="@{'/books?filter=all&filterAuthor=all'}">Display books</a>
+        <a th:href="@{/bookstore/all}">Display bookstores</a>
+        <a th:href="@{/publishers/all}">Display publishers</a>
+    </div>
+</div>
+
 </body>
 </html>

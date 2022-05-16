@@ -33,11 +33,10 @@ public class Book {
     private Long reviewScore;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Publisher publisher;
 
     @ManyToMany
-    @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "author_book",
             joinColumns = @JoinColumn(name = "book_id"),
@@ -80,6 +79,9 @@ public class Book {
 
     }
 
+    public void deletePublisher(){
+        this.publisher =null;
+    }
 
     public void deleteFavorites(){
         List<User> users =this.fans;

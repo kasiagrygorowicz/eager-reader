@@ -41,11 +41,12 @@ public class PrivilegedAuthorController {
             authorService.addAuthor(author);
         } catch (DuplicateAuthorException e) {
             attributes.addFlashAttribute("error", e.getMessage());
+            System.out.println(e.getMessage());
             return "redirect:/author/add";
         }
 
         attributes.addFlashAttribute("success", "New author added successfully");
-        return "redirect:pages/authors/all-authors";
+        return "redirect:/authors/all";
     }
 
 //    == edit author ==

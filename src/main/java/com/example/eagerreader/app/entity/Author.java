@@ -26,7 +26,7 @@ public class Author {
     @Column(nullable=true, length = 3000)
     private String info;
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
     private List<Book> books;
 
 

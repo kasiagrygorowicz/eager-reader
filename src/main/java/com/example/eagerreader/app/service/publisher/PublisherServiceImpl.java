@@ -1,12 +1,15 @@
 package com.example.eagerreader.app.service.publisher;
 
+import com.example.eagerreader.app.entity.Book;
 import com.example.eagerreader.app.entity.Publisher;
+import com.example.eagerreader.app.repository.BookRepository;
 import com.example.eagerreader.app.repository.PublisherRepository;
 import com.example.eagerreader.app.dto.publisher.CreatePublisherDTO;
 import com.example.eagerreader.app.dto.publisher.EditPublisherDTO;
 import com.example.eagerreader.app.dto.publisher.PublisherDTO;
 import com.example.eagerreader.app.exception.authorException.author.AuthorNotFoundException;
 import com.example.eagerreader.app.exception.authorException.publisher.DuplicatePublisherException;
+import com.example.eagerreader.app.service.book.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class PublisherServiceImpl implements PublisherService {
 
     private final PublisherRepository publisherRepository;
+    private final BookService bookService;
 
     @Override
     public void addPublisher(CreatePublisherDTO publisher) {
@@ -53,7 +57,11 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public void deletePublisher(Long id) {
-        publisherRepository.delete(findPublisherById(id));
+        Publisher publisher =findPublisherById(id);
+        List<Book> books =publisher.getBooks();
+        for(Book b :books)
+            bookService.deleteBook(b.getId());
+        publisherRepository.delete(publisher);
 
     }
 

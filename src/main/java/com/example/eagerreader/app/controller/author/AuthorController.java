@@ -21,7 +21,7 @@ public class AuthorController {
         return "pages/authors/all-authors";
     }
 
-    @GetMapping("/{id}/details")
+    @GetMapping("/details/{id}")
     public String displayAuthorDetailsPage(@PathVariable Long id,Model model){
         model.addAttribute("author",authorService.getAuthorDetails(id));
         return "pages/authors/author-details";

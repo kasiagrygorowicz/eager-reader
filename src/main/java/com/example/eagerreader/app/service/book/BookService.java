@@ -14,7 +14,7 @@ public interface BookService {
     EditBookDTO getBookToEdit(Long id);
     void editBook(EditBookDTO book,Long id);
     List<BookDTO> getAllBooks();
-    List<BookDTO> getAllBooksByFilter(String filter);
+    List<BookDTO> getAllBooksByFilter(String filter, String authorFilter);
     void deleteBook(Long id);
     BookDetailsDTO getBookDetails(Long id);
     List<ReviewDTO> getReviews(Long id);

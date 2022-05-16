@@ -52,7 +52,7 @@ public class PrivilegedBookController {
             return "redirect:/book/add";
         }
         attributes.addFlashAttribute("success", "New book added successfully");
-        return "redirect:/books?filter=all";
+        return "redirect:/books?filter=all&authorFilter=all";
     }
 
 //    == edit book ==
@@ -78,7 +78,8 @@ public class PrivilegedBookController {
             attributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/book/edit/"+id;
         }
-        return "redirect:/books?filter=all";
+        attributes.addFlashAttribute("success", "Book edited successfully");
+        return "redirect:/books?filter=all&authorFilter=all";
     }
 
 //    delete
@@ -88,9 +89,9 @@ public class PrivilegedBookController {
             bookService.deleteBook(id);
         }catch(BookNotFoundException e){
             attributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/books?filter=all";
+            return "redirect:/books?filter=all&authorFilter=all";
         }
         attributes.addFlashAttribute("success", "Book deleted successfully");
-        return "redirect:/books?filter=all";
+        return "redirect:/books?filter=all&authorFilter=all";
     }
 }

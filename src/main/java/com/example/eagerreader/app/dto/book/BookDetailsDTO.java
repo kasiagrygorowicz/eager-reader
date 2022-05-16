@@ -18,6 +18,9 @@ import java.util.List;
 public class BookDetailsDTO {
 
     @NotBlank
+    private Long id;
+
+    @NotBlank
     private String title;
 
     @NotBlank

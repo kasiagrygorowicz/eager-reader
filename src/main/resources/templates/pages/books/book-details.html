@@ -54,7 +54,7 @@
                                 <ul>
                                     <li>
                                         <a class="text-decoration-none" th:each="a :${book.authors}"
-                                           th:href="@{/authors/__${a.id}__/details}"
+                                           th:href="@{/authors/details/__${a.id}__}"
                                            th:text="${a.firstname}+' '+${a.lastname}"/>
                                     </li>
                                 </ul>
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <div class="d-flex flex-column mt-5" sec:authorize="hasRole('user')">
+            <div class="d-flex flex-column mt-5" sec:authorize="hasAuthority('user')">
                 <h2>Add review</h2>
                 <hr/>
                 <form class="w-100" th:action="@{/book/review/__${id}__}" th:method="post" th:object="${review}">

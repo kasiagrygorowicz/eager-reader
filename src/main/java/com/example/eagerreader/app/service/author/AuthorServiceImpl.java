@@ -6,6 +6,7 @@ import com.example.eagerreader.app.entity.Book;
 import com.example.eagerreader.app.repository.AuthorRepository;
 import com.example.eagerreader.app.exception.authorException.author.AuthorNotFoundException;
 import com.example.eagerreader.app.exception.authorException.author.DuplicateAuthorException;
+import com.example.eagerreader.app.service.book.BookService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
+    private final BookService bookService;
     private final Logger log = LoggerFactory.getLogger(AuthorServiceImpl.class);
 
     @Override
@@ -59,6 +61,10 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void deleteAuthor(Long id) {
+        Author author=findAuthorById(id);
+        List<Book> books =author.getBooks();
+        for(Book b :books)
+            bookService.deleteBook(b.getId());
         authorRepository.delete(findAuthorById(id));
     }
 

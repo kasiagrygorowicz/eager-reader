@@ -57,7 +57,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void editBook(EditBookDTO book,Long id) {
+    public void editBook(EditBookDTO book, Long id) {
         Book b = bookRepository.getById(id);
         b.setTitle(book.getTitle());
         b.setDescription(book.getDescription());
@@ -89,23 +89,52 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDTO> getAllBooksByFilter(String filter) {
-                if(filter.equals("highest_rating")) return bookRepository.findByOrderByReviewScoreDesc().stream().map(
-                b -> BookMapper.map(b)
-        ).collect(Collectors.toList());
+    public List<BookDTO> getAllBooksByFilter(String filter, String authorFilter) {
+        if (filter.equals("highest_rating")) {
 
-        if(filter.equals("lowest_rating")) return bookRepository.findByOrderByReviewScoreAsc().stream().map(
-                b -> BookMapper.map(b)
-        ).collect(Collectors.toList());
+            if (authorFilter.equals("all"))
+                return bookRepository.findBooksByReviewScoreIsGreaterThan(2L).stream().map(
+                        b -> BookMapper.map(b)
+                ).collect(Collectors.toList());
 
-        throw new RuntimeException("Filter "+filter+" not found");
+            else {
+                return authorRepository.getById(Long.valueOf(authorFilter)).getBooks().stream().map(
+                        b -> BookMapper.map(b)
+                ).collect(Collectors.toList());
+            }
+        }
+
+        if (filter.equals("lowest_rating")) {
+
+            if (authorFilter.equals("all"))
+                return bookRepository.findBooksByReviewScoreIsLessThanEqual(2L).stream().map(
+                        b -> BookMapper.map(b)
+                ).collect(Collectors.toList());
+
+            else {
+                return authorRepository.getById(Long.valueOf(authorFilter)).getBooks().stream().map(
+                        b -> BookMapper.map(b)
+                ).collect(Collectors.toList());
+            }
+        }
+
+        if(!authorFilter.equals("all")){
+            return authorRepository.getById(Long.valueOf(authorFilter)).getBooks().stream().map(
+                    b -> BookMapper.map(b)
+            ).collect(Collectors.toList());
+        }else{
+            return bookRepository.findAll().stream().map(
+                    b -> BookMapper.map(b)
+            ).collect(Collectors.toList());
+        }
+
     }
 
     @Override
     public void deleteBook(Long id) {
-        Book book =findBookById(id);
+        Book book = findBookById(id);
         List<Review> reviews = book.getReviews();
-        for(Review r : reviews)
+        for (Review r : reviews)
             reviewRepository.delete(r);
         book.deleteFavorites();
         bookRepository.delete(book);
@@ -139,7 +168,6 @@ public class BookServiceImpl implements BookService {
     public static class BookMapper {
 
 
-
         private static Book map(CreateBookDTO book, Publisher publisher, List<Author> authors) {
             return new Book(book.getTitle(), book.getDescription(), Long.parseLong(book.getPublished()), null, publisher, authors);
         }
@@ -160,13 +188,13 @@ public class BookServiceImpl implements BookService {
             return new BookDTO(book.getTitle(), book.getId(), authors, book.getReviewScore());
         }
 
-        private static BookDetailsDTO map3(Book book){
-            Long rating = book.getReviews().size()!=0 ? book.getReviewScore()/book.getReviews().size() :null;
+        public static BookDetailsDTO map3(Book book) {
+            Long rating = book.getReviews().size() != 0 ? book.getReviewScore() / book.getReviews().size() : null;
             List<AuthorDTO> authors = book.getAuthors().stream().map(a -> AuthorServiceImpl.AuthorMapper.map2(a)).collect(Collectors.toList());
-            List<BookstoreDTO> stores = book.getStores().stream().map(b-> BookstoreServiceImpl.BookstoreMapper.map(b)).collect(Collectors.toList());
-            boolean isFavorite =false;
+            List<BookstoreDTO> stores = book.getStores().stream().map(b -> BookstoreServiceImpl.BookstoreMapper.map(b)).collect(Collectors.toList());
+            boolean isFavorite = false;
             try {
-                User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                 List<Book> list = user.getFavorites();
                 for (Book f : list) {
                     if (f.getId() == book.getId()) {
@@ -174,11 +202,11 @@ public class BookServiceImpl implements BookService {
                         break;
                     }
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
-                }
+            }
 
-            return new BookDetailsDTO(book.getTitle(), book.getDescription(), book.getPublished().toString(), PublisherServiceImpl.PublisherMapper.map(book.getPublisher()),authors,stores,isFavorite,rating);
+            return new BookDetailsDTO(book.getId(), book.getTitle(), book.getDescription(), book.getPublished().toString(), PublisherServiceImpl.PublisherMapper.map(book.getPublisher()), authors, stores, isFavorite, rating);
         }
 
 
